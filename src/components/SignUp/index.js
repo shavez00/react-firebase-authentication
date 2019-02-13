@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
@@ -28,6 +29,7 @@ class SignUpFormBase extends Component {
   
   onSubmit = event => {
     const {
+      // eslint-disable-next-line
       username,
       email,
       passwordOne,
@@ -78,7 +80,7 @@ class SignUpFormBase extends Component {
           value={email}
           onChange={this.onChange}
           type="text"
-          placeholder="Full Name"
+          placeholder="Email address"
          />
         <input
           name="passwordOne"
@@ -110,7 +112,10 @@ const SignUpLink = () => (
   </p>
 )
 
-const SignUpForm = withRouter(withFirebase(SignUpFormBase));
+const SignUpForm = compose(
+  withRouter,
+  withFirebase,
+)(SignUpFormBase);
 
 
 export default SignUpPage;
